@@ -13,4 +13,6 @@ public interface IMantenimientosDAO extends JpaRepository<mantenimientos, Long> 
 
     // Filtrado seguro por ID de usuario (Crítico para privacidad)
     List<mantenimientos> findByUsuarioId(Long usuarioId);
+
+    void deleteByVehiculoId(Long vehiculoId);
 }

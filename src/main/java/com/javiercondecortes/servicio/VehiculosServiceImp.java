@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.javiercondecortes.DAO.IInformesDAO;
 import com.javiercondecortes.DAO.ILiquidosDAO;
+import com.javiercondecortes.DAO.IMantenimientosDAO;
 import com.javiercondecortes.DAO.IVehiculosDAO;
 import com.javiercondecortes.modelo.vehiculos;
 
@@ -21,6 +22,9 @@ public class VehiculosServiceImp implements IVehiculosService {
     
     @Autowired
     private ILiquidosDAO liquidosDao;
+
+    @Autowired
+    private IMantenimientosDAO mantenimientosDao;
 
     @Override
     @Transactional(readOnly = true)
@@ -61,8 +65,10 @@ public class VehiculosServiceImp implements IVehiculosService {
     @Override
     @Transactional
     public void deleteVehiculos(Long id) {
+        informesDao.deleteCarpetasLinksByVehiculoId(id);
         informesDao.deleteByVehiculoId(id);
         liquidosDao.deleteByVehiculoId(id);
+        mantenimientosDao.deleteByVehiculoId(id);
         dao.deleteById(id);
     }
 }
